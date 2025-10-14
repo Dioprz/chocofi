@@ -19,6 +19,20 @@
         };
     };
 
+    combos {
+        compatible = "zmk,combos";
+
+        n_tilde_combo {
+            bindings = <&kp RA(L)>;
+            key-positions = <1 21>;
+        };
+
+        media_combo {
+            bindings = <&sl 5>;
+            key-positions = <36 41>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -84,10 +98,10 @@
 
         movie {
             bindings = <
-&kp    &kp    &kp C_VOLUME_DOWN  &kp UP    &kp C_VOL_UP  &kp             &kp        &kp C_VOL_DN  &kp UP    &kp C_VOLUME_UP  &kp    &kp
-&none  &to 0  &kp LEFT           &kp DOWN  &kp RIGHT     &kp             &kp        &kp LEFT      &kp DOWN  &kp RIGHT        &to 0  &kp
-&kp    &kp    &kp X              &kp C     &kp V         &kp             &kp        &kp           &kp       &kp              &kp    &kp
-                                 &kp       &kp           &meta_esc_td    &sk LSHFT  &kp           &kp
+&none  &none  &kp C_VOLUME_DOWN  &kp UP    &kp C_VOL_UP  &none           &none      &kp C_VOL_DN  &kp UP    &kp C_VOLUME_UP  &none  &none
+&none  &to 0  &kp LEFT           &kp DOWN  &kp RIGHT     &none           &none      &kp LEFT      &kp DOWN  &kp RIGHT        &to 0  &none
+&none  &none  &kp X              &kp C     &kp V         &none           &none      &none         &none     &none            &none  &none
+                                 &none     &none         &meta_esc_td    &sk LSHFT  &none         &none
             >;
         };
     };
