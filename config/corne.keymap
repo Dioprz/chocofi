@@ -43,6 +43,27 @@
             bindings = <&macro_param_1to1 &kp MACRO_PLACEHOLDER &kp K_CANCEL>;
             label = "CLEAN_KP";
         };
+
+        clean_msc: clean_msc {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings = <&macro_param_1to1 &msc MACRO_PLACEHOLDER &kp K_CANCEL>;
+            label = "CLEAN_MSC";
+        };
+
+        clean_mmv: clean_mmv {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings = <&macro_param_1to1 &mmv MACRO_PLACEHOLDER &kp K_CANCEL>;
+            label = "CLEAN_MMV";
+        };
+
+        clean_mkp: clean_mkp {
+            compatible = "zmk,behavior-macro-one-param";
+            #binding-cells = <1>;
+            bindings = <&macro_param_1to1 &mkp MACRO_PLACEHOLDER &kp K_CANCEL>;
+            label = "CLEAN_MKP";
+        };
     };
 
     keymap {
@@ -92,10 +113,10 @@
 
         mouse {
             bindings = <
-&none  &bt BT_SEL 0  &msc SCRL_LEFT  &mmv MOVE_UP    &msc SCRL_RIGHT  &bt BT_CLR    &none  &none      &none             &none         &none          &none
-&none  &bt BT_SEL 1  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &kp CAPS      &none  &sk LSHFT  &sk LEFT_CONTROL  &sk LEFT_ALT  &sk LEFT_META  &none
-&none  &bt BT_SEL 2  &kp K_CUT       &kp K_COPY      &kp K_PASTE      &none         &none  &none      &none             &none         &none          &none
-                                     &mkp LCLK       &mkp MCLK        &mkp RCLK     &none  &none      &trans
+&none  &bt BT_SEL 0  &msc SCRL_LEFT  &clean_mmv MOVE_UP  &clean_msc SCRL_RIGHT  &bt BT_CLR    &none  &none      &none             &none         &none          &none
+&none  &bt BT_SEL 1  &mmv MOVE_LEFT  &mmv MOVE_DOWN      &mmv MOVE_RIGHT        &kp CAPS      &none  &sk LSHFT  &sk LEFT_CONTROL  &sk LEFT_ALT  &sk LEFT_META  &none
+&none  &bt BT_SEL 2  &kp K_CUT       &kp K_COPY          &kp K_PASTE            &none         &none  &none      &none             &none         &none          &none
+                                     &mkp LCLK           &mkp MCLK              &mkp RCLK     &none  &none      &trans
             >;
         };
 
