@@ -12,6 +12,18 @@
 
 &sk { quick-release; };
 
+// Mouse feel: ease-in curve = precise nudges on a quick tap, fast travel when held.
+&mmv {
+    acceleration-exponent = <2>;    // 0 = none, 1 = linear ramp, 2 = ease-in (slow start)
+    time-to-max-speed-ms = <700>;   // longer ramp = wider precise "slow zone"
+    delay-ms = <0>;
+};
+
+&msc {
+    acceleration-exponent = <1>;    // a gentle ramp feels better than instant scroll
+    time-to-max-speed-ms = <500>;
+};
+
 / {
     behaviors {
         meta_esc_td: meta_esc_td {
