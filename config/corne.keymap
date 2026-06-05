@@ -20,6 +20,18 @@
             #binding-cells = <0>;
             bindings = <&kp LEFT_GUI>, <&kp ESCAPE>;
         };
+
+        // Layer access: HOLD = momentary (&mo), TAP = sticky-for-one-press (&sl).
+        // Holding never engages sticky behaviour, so you can move/click as many
+        // times as you like and the layer drops the instant you let go.
+        lsl: layer_hold_sticky {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LAYER_HOLD_STICKY";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&sl>;
+        };
     };
 
     combos {
@@ -33,52 +45,6 @@
         media_combo {
             bindings = <&sl 5>;
             key-positions = <36 41>;
-        };
-    };
-
-    macros {
-        clean_kp: clean_kp {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings = <&macro_param_1to1 &kp MACRO_PLACEHOLDER &kp K_CANCEL>;
-            label = "CLEAN_KP";
-        };
-
-        clean_msc: clean_msc {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings = <&macro_param_1to1 &msc MACRO_PLACEHOLDER &kp K_CANCEL>;
-            label = "CLEAN_MSC";
-        };
-        
-        clean_mmv: clean_mmv {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            label = "CLEAN_MMV";
-            bindings =
-                // 1. Press down the mouse movement direction
-                <&macro_press>,
-                <&macro_param_1to1 &mmv MACRO_PLACEHOLDER>,
-
-                // 2. Pause here as long as your finger holds the key
-                <&macro_pause_for_release>,
-
-                // 3. When you release your finger, stop the mouse movement
-                <&macro_release>,
-                <&macro_param_1to1 &mmv MACRO_PLACEHOLDER>,
-
-                // 4. Return to tap mode, then deterministically reset to the
-                //    base layer. &to acts on PRESS, so we must leave release
-                //    mode (set in step 3) or it would never fire.
-                <&macro_tap>,
-                <&to 0>;
-        };
-
-        clean_mkp: clean_mkp {
-            compatible = "zmk,behavior-macro-one-param";
-            #binding-cells = <1>;
-            bindings = <&macro_param_1to1 &mkp MACRO_PLACEHOLDER &kp K_CANCEL>;
-            label = "CLEAN_MKP";
         };
     };
 
@@ -96,7 +62,7 @@
 &none  &kp Q  &kp W  &kp E  &kp R      &kp T           &kp Y      &kp U          &kp I      &kp O    &kp P     &none
 &none  &kp A  &kp S  &kp D  &kp F      &kp G           &kp H      &kp J          &kp K      &kp L    &kp SEMI  &none
 &none  &kp Z  &kp X  &kp C  &kp V      &kp B           &kp N      &kp M          &kp COMMA  &kp DOT  &kp FSLH  &none
-                     &sl 1  &kp SPACE  &meta_esc_td    &sk LSHFT  &kp BACKSPACE  &sl 3
+                     &lsl 1 1  &kp SPACE  &meta_esc_td    &sk LSHFT  &kp BACKSPACE  &lsl 3 3
             >;
         };
 
@@ -105,7 +71,7 @@
 &none  &none          &none          &none      &none           &none    &kp MINUS  &kp N7  &kp N8  &kp N9  &kp EQUAL      &none
 &none  &sk LEFT_META  &sk LEFT_ALT   &sk LCTRL  &sk LEFT_SHIFT  &none    &kp LBKT   &kp N4  &kp N5  &kp N6  &kp RBKT       &none
 &none  &none          &sk RIGHT_ALT  &none      &none           &none    &kp GRAVE  &kp N1  &kp N2  &kp N3  &kp BACKSLASH  &none
-                                     &sl 2      &none           &none    &kp APOS   &kp N0  &kp E
+                                     &lsl 2 2   &none           &none    &kp APOS   &kp N0  &kp E
             >;
         };
 
@@ -123,14 +89,14 @@
 &none  &kp PAGE_UP    &kp HOME   &kp UP      &kp END      &kp INSERT      &none  &none      &none             &none         &none          &none
 &none  &kp PAGE_DOWN  &kp LEFT   &kp DOWN    &kp RIGHT    &kp CAPSLOCK    &none  &sk LSHFT  &sk LEFT_CONTROL  &sk LEFT_ALT  &sk LEFT_META  &none
 &none  &kp K_UNDO     &kp K_CUT  &kp K_COPY  &kp K_PASTE  &kp K_AGAIN     &none  &none      &none             &none         &none          &none
-                                 &kp DELETE  &kp ENTER    &kp TAB         &none  &none      &sl 4
+                                 &kp DELETE  &kp ENTER    &kp TAB         &none  &none      &lsl 4 4
             >;
         };
 
         mouse {
             bindings = <
-&none  &bt BT_SEL 0  &msc SCRL_LEFT  &clean_mmv MOVE_UP    &clean_msc SCRL_RIGHT  &bt BT_CLR    &none  &none      &none             &none         &none          &none
-&none  &bt BT_SEL 1  &mmv MOVE_LEFT  &clean_mmv MOVE_DOWN  &mmv MOVE_RIGHT        &kp CAPS      &none  &sk LSHFT  &sk LEFT_CONTROL  &sk LEFT_ALT  &sk LEFT_META  &none
+&none  &bt BT_SEL 0  &msc SCRL_LEFT  &mmv MOVE_UP    &msc SCRL_RIGHT  &bt BT_CLR    &none  &none      &none             &none         &none          &none
+&none  &bt BT_SEL 1  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT   &kp CAPS      &none  &sk LSHFT  &sk LEFT_CONTROL  &sk LEFT_ALT  &sk LEFT_META  &none
 &none  &bt BT_SEL 2  &kp K_CUT       &kp K_COPY            &kp K_PASTE            &none         &none  &none      &none             &none         &none          &none
                                      &mkp LCLK             &mkp MCLK              &mkp RCLK     &none  &none      &trans
             >;
