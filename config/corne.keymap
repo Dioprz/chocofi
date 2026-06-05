@@ -8,6 +8,11 @@
 #include <dt-bindings/zmk/backlight.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+
+// Top cursor speed (default 600). Must be defined BEFORE pointing.h, which
+// uses it (guarded by #ifndef) for MOVE_UP/DOWN/LEFT/RIGHT. Scales the whole
+// curve, so the start is faster too.
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 800
 #include <dt-bindings/zmk/pointing.h>
 
 &sk { quick-release; };
