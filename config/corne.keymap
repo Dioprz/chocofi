@@ -13,6 +13,9 @@
 // uses it (guarded by #ifndef) for MOVE_UP/DOWN/LEFT/RIGHT. Scales the whole
 // curve, so the start is faster too.
 #define ZMK_POINTING_DEFAULT_MOVE_VAL 800
+// With smooth scrolling (CONFIG_ZMK_POINTING_SMOOTH_SCROLLING) scroll is high-res,
+// so SCRL_VAL uses MOVE-sized values (hundreds), not the tiny default of 10.
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 600
 #include <dt-bindings/zmk/pointing.h>
 
 &sk { quick-release; };
@@ -25,8 +28,9 @@
 };
 
 &msc {
-    acceleration-exponent = <1>;
-    time-to-max-speed-ms = <400>;
+    acceleration-exponent = <1>;    // increasing speed; smooth thanks to high-res scrolling
+    time-to-max-speed-ms = <300>;   // ramp to full scroll speed
+    delay-ms = <0>;                 // no dead time before scrolling starts
 };
 
 / {
