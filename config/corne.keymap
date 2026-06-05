@@ -59,16 +59,19 @@
                 // 1. Press down the mouse movement direction
                 <&macro_press>,
                 <&macro_param_1to1 &mmv MACRO_PLACEHOLDER>,
-                
+
                 // 2. Pause here as long as your finger holds the key
                 <&macro_pause_for_release>,
-                
+
                 // 3. When you release your finger, stop the mouse movement
                 <&macro_release>,
                 <&macro_param_1to1 &mmv MACRO_PLACEHOLDER>,
-                
-                // 4. NOW fire the cancel command as a completely separate step
-                <&kp K_CANCEL>;
+
+                // 4. Return to tap mode, then deterministically reset to the
+                //    base layer. &to acts on PRESS, so we must leave release
+                //    mode (set in step 3) or it would never fire.
+                <&macro_tap>,
+                <&to 0>;
         };
 
         clean_mkp: clean_mkp {
