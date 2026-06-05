@@ -12,7 +12,17 @@
 
 &sk { quick-release; };
 
-// Mouse feel: ease-in curve = precise nudges on a quick tap, fast travel when held.
+// Mouse feel: linear ramp (no slow ease-in start), reaches full speed quickly.
+&mmv {
+    acceleration-exponent = <1>;    // 1 = linear from the start (no slow ease-in); 0 = instant full speed
+    time-to-max-speed-ms = <250>;   // shorter ramp = accelerates faster
+    delay-ms = <0>;
+};
+
+&msc {
+    acceleration-exponent = <1>;
+    time-to-max-speed-ms = <400>;
+};
 
 / {
     behaviors {
