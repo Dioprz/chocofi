@@ -12,11 +12,9 @@
 #     shield: reviung41
 #
 include:
-  - board: nice_nano@2.0.0
-    # FIX: Moved corne_left to the end of the line
-    shield: nice_view_adapter nice_view corne_left 
-  - board: nice_nano@2.0.0
-    # FIX: Moved corne_right to the end of the line
-    shield: nice_view_adapter nice_view corne_right 
-  - board: nice_nano@2.0.0
+  - board: nice_nano@2//zmk
+    shield: nice_view_adapter nice_view corne_left
+  - board: nice_nano@2//zmk
+    shield: nice_view_adapter nice_view corne_right
+  - board: nice_nano@2//zmk
     shield: settings_reset
